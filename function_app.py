@@ -19,7 +19,8 @@ AZURE_OPENAI_KEY = os.environ["AZURE_OPENAI_KEY"]
 @app.route(route="http_trigger")
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     try:
-        query = req.params.get('query')
+        req_body = req.get_json()
+        query = req_body.get('query')
 
         # Azure AI Search 클라이언트 생성
         search_endpoint = f"https://{AZURE_AISEARCH_NAME}.search.windows.net"
